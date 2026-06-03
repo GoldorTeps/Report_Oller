@@ -430,6 +430,147 @@
 
         .proj-separator { height: 1px; background: var(--sb-border); margin: 8px 6px; }
 
+        /* ─── Project card ─── */
+        #proj-card {
+            display: none;
+            flex-direction: column;
+            padding: 48px 60px 80px;
+            max-width: 780px;
+            width: 100%;
+            background: #fff;
+        }
+
+        .proj-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .proj-card-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .proj-card-icon-teal  { background: rgba(20,184,166,.12); box-shadow: 0 0 16px rgba(20,184,166,.2); }
+        .proj-card-icon-violet{ background: rgba(109,40,217,.10); }
+
+        .proj-card-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.4px;
+        }
+
+        .proj-card-desc {
+            font-size: 14.5px;
+            line-height: 1.75;
+            color: #6b7280;
+            margin-bottom: 32px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #f0f0f5;
+        }
+
+        .proj-card-section {
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #9ca3af;
+            margin-bottom: 14px;
+        }
+
+        .proj-logins-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 36px;
+        }
+
+        .proj-logins-table th {
+            padding: 9px 14px;
+            text-align: left;
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #9ca3af;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .proj-logins-table td {
+            padding: 11px 14px;
+            border-bottom: 1px solid #f5f5fa;
+            color: #374151;
+            font-size: 13.5px;
+        }
+
+        .proj-logins-table tr:hover td { background: #fafafe; }
+
+        .cred-badge {
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            background: #f3f4f6;
+            color: #7c3aed;
+            padding: 2px 8px;
+            border-radius: 5px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .role-super  { background: #faf5ff; color: #7c3aed; }
+        .role-admin  { background: #ede9fe; color: #5b21b6; }
+        .role-staff  { background: #e0f2fe; color: #0369a1; }
+        .role-free   { background: #f0fdf4; color: #15803d; }
+        .role-kiosk  { background: #fff7ed; color: #c2410c; }
+
+        .proj-note {
+            font-size: 13px;
+            color: #6b7280;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 32px;
+            line-height: 1.65;
+        }
+
+        .proj-open-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #111827;
+            color: #fff;
+            border: none;
+            padding: 13px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background .15s;
+            font-family: inherit;
+        }
+
+        .proj-open-btn:hover { background: #1f2937; }
+
+        .proj-open-btn-teal  { background: #0d9488; }
+        .proj-open-btn-teal:hover  { background: #0f766e; }
+        .proj-open-btn-violet{ background: #6d28d9; }
+        .proj-open-btn-violet:hover{ background: #5b21b6; }
+
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
         #list::-webkit-scrollbar-thumb,
@@ -463,25 +604,25 @@
     <div id="sb-projects">
         <div class="proj-section-label">Proyectos</div>
 
-        <a class="proj-link proj-link-central" href="https://bc.zerocog.org" target="_blank" rel="noopener">
+        <div class="proj-link proj-link-central" onclick="openProject('zerocog')" style="cursor:pointer">
             <div class="proj-dot proj-dot-central">⬡</div>
             <span class="proj-name">bc.zerocog</span>
-        </a>
+        </div>
 
         <div class="proj-separator"></div>
 
-        <a class="proj-link" href="http://46.225.69.8:5174/" target="_blank" rel="noopener">
+        <div class="proj-link" onclick="openProject('hotel')" style="cursor:pointer">
             <div class="proj-dot proj-dot-victor">🏨</div>
             <span class="proj-name">PMS Oller de Mas</span>
-        </a>
-        <a class="proj-link" href="http://46.225.69.8:5175/login" target="_blank" rel="noopener">
+        </div>
+        <div class="proj-link" onclick="openProject('fichar')" style="cursor:pointer">
             <div class="proj-dot proj-dot-victor">⏱</div>
             <span class="proj-name">ProgramaFichar</span>
-        </a>
-        <a class="proj-link" href="http://46.225.69.8:5173/" target="_blank" rel="noopener">
+        </div>
+        <div class="proj-link" onclick="openProject('vgestion')" style="cursor:pointer">
             <div class="proj-dot proj-dot-victor">📊</div>
             <span class="proj-name">VGestion</span>
-        </a>
+        </div>
     </div>
 </div>
 
@@ -497,6 +638,7 @@
         </div>
         <div id="body"></div>
     </div>
+    <div id="proj-card"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -580,6 +722,7 @@
         const md = await res.text();
 
         document.getElementById('empty').style.display = 'none';
+        document.getElementById('proj-card').style.display = 'none';
         document.getElementById('report').style.display = 'flex';
 
         const tag = document.getElementById('mtag');
@@ -613,6 +756,114 @@
     function longDate(s) {
         const d = new Date(s + 'T12:00:00');
         return d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    // ─── Project cards ───────────────────────────────────────────────────────
+
+    const PROJECTS = {
+        zerocog: {
+            icon: '⬡',
+            iconClass: 'proj-card-icon-teal',
+            btnClass: 'proj-open-btn-teal',
+            title: 'bc.zerocog',
+            url: 'https://bc.zerocog.org',
+            desc: 'Hub central de análisis financiero con IA. Conecta Business Central (Microsoft) con un chat en lenguaje natural sobre facturas, proveedores y flujo de caja. Datos de demo: corpus CRONUS ES (227 eventos BC + 109 facturas VGestion).',
+            note: 'No requiere login. La app arranca directamente con los datos CRONUS cargados. Si el panel muestra "Cargando datos…", pulsa Ctrl+Shift+R.',
+            logins: [
+                { role: 'Acceso libre', roleClass: 'role-free', label: '— sin autenticación —', user: '', pass: '' }
+            ]
+        },
+        hotel: {
+            icon: '🏨',
+            iconClass: 'proj-card-icon-violet',
+            btnClass: 'proj-open-btn-violet',
+            title: 'PMS Oller de Mas',
+            url: 'http://46.225.69.8:5174/',
+            desc: 'Sistema de gestión hotelera (PMS) para Hotel Ollers de Mar. Gestión de reservas, check-in/check-out, rack visual de habitaciones, housekeeping, clientes VIP, integración con Brevo para emails automáticos e informes.',
+            note: null,
+            logins: [
+                { role: 'Admin',        roleClass: 'role-admin', label: 'Acceso completo al panel',             user: 'admin@hotel.com',     pass: 'admin123'     },
+                { role: 'Recepción',    roleClass: 'role-staff', label: 'Check-in, check-out, reservas activas', user: 'recepcio@hotel.com',  pass: 'recepcio123'  }
+            ]
+        },
+        fichar: {
+            icon: '⏱',
+            iconClass: 'proj-card-icon-violet',
+            btnClass: 'proj-open-btn-violet',
+            title: 'ProgramaFichar',
+            url: 'http://46.225.69.8:5175/login',
+            desc: 'SaaS multitenant de control de presencia laboral (RDL 8/2019). Panel admin con fichajes en tiempo real, gestión de ausencias, horarios y overtime. Kiosk táctil para fichaje por PIN. Portal del empleado con historial y solicitud de ausencias.',
+            note: 'Hay 2 empresas demo con 25 empleados y 103 jornadas. Los empleados fichan en el kiosk con el slug de empresa + su PIN de 6 dígitos.',
+            logins: [
+                { role: 'Super Admin',  roleClass: 'role-super', label: 'Acceso global a todas las empresas',   user: 'david@fichar.app',               pass: 'Fichar2026!' },
+                { role: 'Admin',        roleClass: 'role-admin', label: 'Construcciones Martínez',              user: 'admin@martinez.es',              pass: 'Admin2026!'  },
+                { role: 'Supervisor',   roleClass: 'role-staff', label: 'Construcciones Martínez',              user: 'encargado@martinez.es',          pass: 'Super2026!'  },
+                { role: 'Admin',        roleClass: 'role-admin', label: 'Clínica San Rafael',                   user: 'admin@sanrafael.es',             pass: 'Admin2026!'  },
+                { role: 'Supervisor',   roleClass: 'role-staff', label: 'Clínica San Rafael',                   user: 'jefe.urgencias@sanrafael.es',    pass: 'Super2026!'  },
+                { role: 'Kiosk',        roleClass: 'role-kiosk', label: 'Slug: construcciones-martinez — PINs: 100001…100012', user: '', pass: '' },
+                { role: 'Kiosk',        roleClass: 'role-kiosk', label: 'Slug: clinica-san-rafael — PINs: 200001…200012',      user: '', pass: '' }
+            ]
+        },
+        vgestion: {
+            icon: '📊',
+            iconClass: 'proj-card-icon-violet',
+            btnClass: 'proj-open-btn-violet',
+            title: 'VGestion',
+            url: 'http://46.225.69.8:5173/',
+            desc: 'Gestor de facturas por email con integración ZeroCog. Captura facturas automáticamente desde el correo, las categoriza y las sincroniza con el hub ZerocogFrank cada 30 minutos. Incluye columna de beneficiario, check de contabilizado y modo de pago.',
+            note: null,
+            logins: [
+                { role: 'Admin', roleClass: 'role-admin', label: 'Acceso completo', user: 'goldorteps@gmail.com', pass: '(contraseña de producción)' }
+            ]
+        }
+    };
+
+    function openProject(id) {
+        const p = PROJECTS[id];
+        if (!p) return;
+
+        document.getElementById('empty').style.display = 'none';
+        document.getElementById('report').style.display = 'none';
+
+        const loginsHtml = p.logins.map(l => `
+            <tr>
+                <td><span class="role-badge ${l.roleClass}">${l.role}</span></td>
+                <td>${l.label}</td>
+                <td>${l.user ? `<span class="cred-badge">${l.user}</span>` : '—'}</td>
+                <td>${l.pass ? `<span class="cred-badge">${l.pass}</span>` : '—'}</td>
+            </tr>
+        `).join('');
+
+        const noteHtml = p.note
+            ? `<div class="proj-note">ℹ️ ${p.note}</div>`
+            : '';
+
+        document.getElementById('proj-card').innerHTML = `
+            <div class="proj-card-header">
+                <div class="proj-card-icon ${p.iconClass}">${p.icon}</div>
+                <div class="proj-card-title">${p.title}</div>
+            </div>
+            <p class="proj-card-desc">${p.desc}</p>
+            <div class="proj-card-section">Accesos</div>
+            <table class="proj-logins-table">
+                <thead>
+                    <tr>
+                        <th>Rol</th>
+                        <th>Descripción</th>
+                        <th>Usuario / Email</th>
+                        <th>Contraseña / PIN</th>
+                    </tr>
+                </thead>
+                <tbody>${loginsHtml}</tbody>
+            </table>
+            ${noteHtml}
+            <a class="proj-open-btn ${p.btnClass}" href="${p.url}" target="_blank" rel="noopener">
+                Abrir ${p.title} →
+            </a>
+        `;
+        document.getElementById('proj-card').style.display = 'flex';
+        document.getElementById('proj-card').style.flexDirection = 'column';
+        document.getElementById('content').scrollTop = 0;
     }
 
     init();
