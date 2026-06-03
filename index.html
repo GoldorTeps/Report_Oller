@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --sb: #0b0b16;
+            --sb-border: #16162a;
+            --accent: #6d28d9;
+            --accent-glow: rgba(109,40,217,0.12);
+            --accent-border: rgba(109,40,217,0.25);
+            --amber: #d97706;
+            --amber-glow: rgba(217,119,6,0.1);
+            --amber-border: rgba(217,119,6,0.25);
+            --text-hi: #eeeeff;
+            --text-mid: #7070a0;
+            --text-lo: #32324a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--sb);
+        }
+
+        /* ─── Sidebar ─── */
+        #sidebar {
+            width: 272px;
+            min-width: 272px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--sb-border);
+        }
+
+        #sb-head {
+            padding: 22px 18px 14px;
+            border-bottom: 1px solid var(--sb-border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .brand-dot {
+            width: 30px; height: 30px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 0 16px rgba(109,40,217,0.4);
+        }
+
+        .brand-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-hi);
+            letter-spacing: -0.2px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 6px 0;
+            border-radius: 7px;
+            border: 1px solid transparent;
+            font-size: 11.5px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            color: var(--text-lo);
+            transition: all .15s;
+            letter-spacing: 0.2px;
+        }
+
+        .tab:hover { color: var(--text-mid); background: rgba(255,255,255,0.03); }
+
+        .tab.active-session {
+            background: var(--accent-glow);
+            border-color: var(--accent-border);
+            color: #a78bfa;
+        }
+
+        .tab.active-semanal {
+            background: var(--amber-glow);
+            border-color: var(--amber-border);
+            color: #fbbf24;
+        }
+
+        .search {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--sb-border);
+            border-radius: 7px;
+            padding: 8px 11px;
+            font-size: 12.5px;
+            color: var(--text-mid);
+            font-family: inherit;
+            outline: none;
+            transition: border-color .15s, color .15s;
+        }
+        .search:focus { border-color: var(--accent); color: var(--text-hi); }
+        .search::placeholder { color: var(--text-lo); }
+        #search-semanal:focus { border-color: var(--amber); }
+
+        #list, #list-semanal {
+            overflow-y: auto;
+            flex: 1;
+            padding: 6px 8px 16px;
+        }
+
+        .month-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: var(--text-lo);
+            padding: 16px 10px 6px;
+        }
+
+        .item {
+            padding: 9px 10px;
+            border-radius: 7px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: background .12s, border-color .12s;
+            margin-bottom: 1px;
+        }
+
+        .item:hover { background: rgba(255,255,255,0.03); }
+
+        .item.active-s {
+            background: var(--accent-glow);
+            border-color: var(--accent-border);
+        }
+
+        .item.active-w {
+            background: var(--amber-glow);
+            border-color: var(--amber-border);
+        }
+
+        .item-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+
+        .item-project {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent);
+            opacity: 0.65;
+        }
+
+        .item.active-s .item-project { opacity: 1; }
+
+        .item-project-w {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--amber);
+            opacity: 0.65;
+        }
+
+        .item.active-w .item-project-w { opacity: 1; }
+
+        .item-date {
+            font-size: 10px;
+            color: var(--text-lo);
+        }
+
+        .item.active-s .item-date { color: rgba(109,40,217,.6); }
+        .item.active-w .item-date { color: rgba(217,119,6,.7); }
+
+        .item-title {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: #7a7a9a;
+            line-height: 1.4;
+        }
+
+        .item.active-s .item-title,
+        .item.active-w .item-title { color: var(--text-hi); }
+
+        /* Panel views */
+        .panel { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+        .panel.visible { display: flex; }
+
+        /* ─── Content ─── */
+        #content {
+            flex: 1;
+            overflow-y: auto;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #empty {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: #c4c4d0;
+        }
+
+        .empty-icon {
+            width: 52px; height: 52px;
+            background: #f5f5fa;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+        }
+
+        #empty p { font-size: 13px; }
+
+        #report { display: none; flex-direction: column; flex: 1; }
+
+        /* Meta bar */
+        #meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 60px;
+            background: #fafafa;
+            border-bottom: 1px solid #f0f0f5;
+            flex-shrink: 0;
+        }
+
+        .meta-tag {
+            display: inline-flex;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .meta-tag-session { background: #ede9fe; color: #6d28d9; }
+        .meta-tag-week    { background: #fef3c7; color: #d97706; }
+
+        .meta-date-text { font-size: 12.5px; color: #9ca3af; }
+
+        #body {
+            padding: 48px 60px 80px;
+            max-width: 780px;
+            width: 100%;
+        }
+
+        #body h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.4px;
+            line-height: 1.25;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #f0f0f5;
+        }
+
+        #body h2 {
+            font-size: 11px;
+            font-weight: 700;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 36px 0 12px;
+        }
+
+        #body h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 24px 0 8px;
+        }
+
+        #body p {
+            font-size: 14.5px;
+            line-height: 1.82;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        #body ul, #body ol { padding-left: 18px; margin-bottom: 16px; }
+
+        #body li {
+            font-size: 14.5px;
+            line-height: 1.75;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+
+        #body strong { color: #111827; font-weight: 600; }
+
+        #body code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12.5px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: #7c3aed;
+        }
+
+        #body pre {
+            background: #111827;
+            padding: 18px 22px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 18px 0;
+        }
+
+        #body pre code { background: none; color: #d1d5db; padding: 0; font-size: 12.5px; }
+
+        #body blockquote {
+            border-left: 3px solid #7c3aed;
+            padding: 10px 18px;
+            margin: 20px 0;
+            background: #faf5ff;
+            border-radius: 0 7px 7px 0;
+        }
+
+        #body blockquote p { color: #5b21b6; margin: 0; font-style: italic; font-size: 14px; }
+
+        #body hr { border: none; border-top: 1px solid #f0f0f5; margin: 28px 0; }
+
+        #body table { width: 100%; border-collapse: collapse; margin: 18px 0; }
+
+        #body th {
+            padding: 9px 14px;
+            text-align: left;
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #9ca3af;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        #body td {
+            padding: 11px 14px;
+            border-bottom: 1px solid #f5f5fa;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        #body tr:hover td { background: #fafafe; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        #list::-webkit-scrollbar-thumb,
+        #list-semanal::-webkit-scrollbar-thumb { background: #20203a; border-radius: 3px; }
+        #content::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+<div id="sidebar">
+    <div id="sb-head">
+        <div class="brand">
+            <div class="brand-dot">📋</div>
+            <div class="brand-label">Work Reports</div>
+        </div>
+        <div class="tabs">
+            <div class="tab active-session" id="tab-session" onclick="switchTab('session')">Sesiones</div>
+            <div class="tab" id="tab-semanal" onclick="switchTab('semanal')">Semanal</div>
+        </div>
+        <input class="search" type="text" id="search-session" placeholder="Buscar sesión..." oninput="filter('session', this.value)" style="display:block">
+        <input class="search" type="text" id="search-semanal" placeholder="Buscar semana..." oninput="filter('semanal', this.value)" style="display:none">
+    </div>
+
+    <div class="panel visible" id="panel-session">
+        <div id="list"></div>
+    </div>
+    <div class="panel" id="panel-semanal">
+        <div id="list-semanal"></div>
+    </div>
+</div>
+
+<div id="content">
+    <div id="empty">
+        <div class="empty-icon">📋</div>
+        <p>Selecciona un report</p>
+    </div>
+    <div id="report">
+        <div id="meta">
+            <span class="meta-tag" id="mtag"></span>
+            <span class="meta-date-text" id="mdate"></span>
+        </div>
+        <div id="body"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    marked.setOptions({ breaks: true, gfm: true });
+
+    let sessions = [], weeklies = [];
+    let activeTab = 'session';
+
+    async function init() {
+        try {
+            const r = await fetch('manifest.json?' + Date.now());
+            const d = await r.json();
+            const all = d.reports || [];
+            sessions = all.filter(r => r.type !== 'semanal').sort((a,b) => b.date.localeCompare(a.date));
+            weeklies = all.filter(r => r.type === 'semanal').sort((a,b) => b.date.localeCompare(a.date));
+            renderList('list', sessions, 'session');
+            renderList('list-semanal', weeklies, 'semanal');
+            if (sessions.length) pick(sessions[0], 'session');
+        } catch(e) {}
+    }
+
+    function switchTab(tab) {
+        activeTab = tab;
+        document.getElementById('panel-session').classList.toggle('visible', tab === 'session');
+        document.getElementById('panel-semanal').classList.toggle('visible', tab === 'semanal');
+        document.getElementById('tab-session').className = 'tab' + (tab === 'session' ? ' active-session' : '');
+        document.getElementById('tab-semanal').className = 'tab' + (tab === 'semanal' ? ' active-semanal' : '');
+        document.getElementById('search-session').style.display = tab === 'session' ? 'block' : 'none';
+        document.getElementById('search-semanal').style.display = tab === 'semanal' ? 'block' : 'none';
+
+        const list = tab === 'semanal' ? weeklies : sessions;
+        if (list.length) pick(list[0], tab);
+        else { document.getElementById('report').style.display = 'none'; document.getElementById('empty').style.display = 'flex'; }
+    }
+
+    function renderList(listId, reports, type) {
+        const list = document.getElementById(listId);
+        list.innerHTML = '';
+        let lastMonth = '';
+
+        if (!reports.length) {
+            list.innerHTML = '<div style="padding:24px 14px;font-size:12px;color:#32324a;text-align:center">Sin reports aún</div>';
+            return;
+        }
+
+        reports.forEach(r => {
+            const m = monthStr(r.date);
+            if (m !== lastMonth) {
+                const lbl = document.createElement('div');
+                lbl.className = 'month-label';
+                lbl.textContent = m;
+                list.appendChild(lbl);
+                lastMonth = m;
+            }
+            const el = document.createElement('div');
+            el.className = 'item';
+            el.dataset.id = r.id;
+            el.dataset.type = type;
+            const projClass = type === 'semanal' ? 'item-project-w' : 'item-project';
+            el.innerHTML = `
+                <div class="item-top">
+                    <span class="${projClass}">${r.project || (type === 'semanal' ? 'Semana' : '')}</span>
+                    <span class="item-date">${shortDate(r.date)}</span>
+                </div>
+                <div class="item-title">${r.title}</div>
+            `;
+            el.addEventListener('click', () => pick(r, type));
+            list.appendChild(el);
+        });
+    }
+
+    async function pick(r, type) {
+        document.querySelectorAll('.item').forEach(el =>
+            el.classList.remove('active-s', 'active-w'));
+
+        const el = document.querySelector(`.item[data-id="${r.id}"][data-type="${type}"]`);
+        if (el) el.classList.add(type === 'semanal' ? 'active-w' : 'active-s');
+
+        const res = await fetch(r.file + '?' + Date.now());
+        const md = await res.text();
+
+        document.getElementById('empty').style.display = 'none';
+        document.getElementById('report').style.display = 'flex';
+
+        const tag = document.getElementById('mtag');
+        tag.textContent = r.project || (type === 'semanal' ? 'Resumen semanal' : 'Sesión');
+        tag.className = 'meta-tag ' + (type === 'semanal' ? 'meta-tag-week' : 'meta-tag-session');
+        document.getElementById('mdate').textContent = longDate(r.date);
+        document.getElementById('body').innerHTML = marked.parse(md);
+        document.getElementById('content').scrollTop = 0;
+    }
+
+    function filter(type, q) {
+        const f = q.trim().toLowerCase();
+        const src = type === 'semanal' ? weeklies : sessions;
+        const listId = type === 'semanal' ? 'list-semanal' : 'list';
+        renderList(listId, f ? src.filter(r =>
+            r.title.toLowerCase().includes(f) || (r.project||'').toLowerCase().includes(f)
+        ) : src, type);
+    }
+
+    function monthStr(s) {
+        const d = new Date(s + 'T12:00:00');
+        return d.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+               .replace(/^\w/, c => c.toUpperCase());
+    }
+
+    function shortDate(s) {
+        const d = new Date(s + 'T12:00:00');
+        return d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' });
+    }
+
+    function longDate(s) {
+        const d = new Date(s + 'T12:00:00');
+        return d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    init();
+</script>
+</body>
+</html>
