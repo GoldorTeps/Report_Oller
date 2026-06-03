@@ -367,6 +367,69 @@
 
         #body tr:hover td { background: #fafafe; }
 
+        /* ─── Projects nav ─── */
+        #sb-projects {
+            border-top: 1px solid var(--sb-border);
+            padding: 12px 8px 14px;
+            flex-shrink: 0;
+        }
+
+        .proj-section-label {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: var(--text-lo);
+            padding: 0 6px 8px;
+        }
+
+        .proj-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 8px;
+            border-radius: 7px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            transition: background .12s, border-color .12s;
+            margin-bottom: 2px;
+        }
+
+        .proj-link:hover { background: rgba(255,255,255,0.04); border-color: var(--sb-border); }
+
+        .proj-dot {
+            width: 22px; height: 22px;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+
+        .proj-dot-central {
+            background: rgba(20,184,166,0.18);
+            box-shadow: 0 0 10px rgba(20,184,166,0.25);
+        }
+
+        .proj-dot-victor { background: rgba(109,40,217,0.15); }
+
+        .proj-name {
+            font-size: 11.5px;
+            font-weight: 500;
+            color: var(--text-mid);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color .12s;
+        }
+
+        .proj-link:hover .proj-name { color: var(--text-hi); }
+
+        .proj-link-central { border-color: rgba(20,184,166,0.15); background: rgba(20,184,166,0.05); }
+        .proj-link-central .proj-name { color: #2dd4bf; }
+        .proj-link-central:hover { background: rgba(20,184,166,0.1); border-color: rgba(20,184,166,0.3); }
+
+        .proj-separator { height: 1px; background: var(--sb-border); margin: 8px 6px; }
+
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
         #list::-webkit-scrollbar-thumb,
@@ -395,6 +458,30 @@
     </div>
     <div class="panel" id="panel-semanal">
         <div id="list-semanal"></div>
+    </div>
+
+    <div id="sb-projects">
+        <div class="proj-section-label">Proyectos</div>
+
+        <a class="proj-link proj-link-central" href="https://bc.zerocog.org" target="_blank" rel="noopener">
+            <div class="proj-dot proj-dot-central">⬡</div>
+            <span class="proj-name">bc.zerocog</span>
+        </a>
+
+        <div class="proj-separator"></div>
+
+        <a class="proj-link" href="http://46.225.69.8:5174/" target="_blank" rel="noopener">
+            <div class="proj-dot proj-dot-victor">🏨</div>
+            <span class="proj-name">PMS Oller de Mas</span>
+        </a>
+        <a class="proj-link" href="http://46.225.69.8:5175/login" target="_blank" rel="noopener">
+            <div class="proj-dot proj-dot-victor">⏱</div>
+            <span class="proj-name">ProgramaFichar</span>
+        </a>
+        <a class="proj-link" href="http://46.225.69.8:5173/" target="_blank" rel="noopener">
+            <div class="proj-dot proj-dot-victor">📊</div>
+            <span class="proj-name">VGestion</span>
+        </a>
     </div>
 </div>
 
