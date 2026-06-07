@@ -623,6 +623,10 @@
             <div class="proj-dot proj-dot-victor">📊</div>
             <span class="proj-name">VGestion</span>
         </div>
+        <div class="proj-link" onclick="openProject('mice')" style="cursor:pointer">
+            <div class="proj-dot proj-dot-victor">🤝</div>
+            <span class="proj-name">MICE / Gestión Comercial</span>
+        </div>
     </div>
 </div>
 
@@ -814,6 +818,20 @@
             note: null,
             logins: [
                 { role: 'Admin', roleClass: 'role-admin', label: 'Acceso completo', user: 'victorjanerperez@gmail.com', pass: 'Victor2026!' }
+            ]
+        },
+        mice: {
+            icon: '🤝',
+            iconClass: 'proj-card-icon-violet',
+            btnClass: 'proj-open-btn-violet',
+            title: 'MICE / Gestión Comercial',
+            url: 'http://46.225.69.8:5176/',
+            desc: 'Plataforma de gestión comercial para eventos MICE (BLE y Castlexperience). Pipeline de ventas con kanban y drag & drop en 6 etapas (Recibida → Cotizada → Enviada → Negociación → Ganada → Perdida), catálogo de servicios, gestión de clientes y alertas de seguimiento.',
+            note: 'Hay 2 marcas demo: BLE y Castlexperience, con 8 clientes, 20 partidas de catálogo y 10 peticiones cada una en todos los estados del pipeline.',
+            logins: [
+                { role: 'Admin',     roleClass: 'role-admin', label: 'Acceso completo — ambas marcas', user: 'admin@mice.local',      pass: 'mice2026'  },
+                { role: 'Comercial', roleClass: 'role-staff', label: 'Solo BLE',                       user: 'comercial@ble.demo',    pass: 'demo2026'  },
+                { role: 'Comercial', roleClass: 'role-staff', label: 'Solo Castlexperience',           user: 'comercial@cxp.demo',    pass: 'demo2026'  }
             ]
         }
     };
