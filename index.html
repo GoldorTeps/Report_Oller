@@ -611,13 +611,13 @@
 
         <div class="proj-separator"></div>
 
-        <div class="proj-link" onclick="openProject('hotel')" style="cursor:pointer">
-            <div class="proj-dot proj-dot-victor">🏨</div>
-            <span class="proj-name">PMS Oller de Mas</span>
-        </div>
         <div class="proj-link" onclick="openProject('fichar')" style="cursor:pointer">
             <div class="proj-dot proj-dot-victor">⏱</div>
             <span class="proj-name">ProgramaFichar</span>
+        </div>
+        <div class="proj-link" onclick="openProject('hotel')" style="cursor:pointer">
+            <div class="proj-dot proj-dot-victor">🏨</div>
+            <span class="proj-name">PMS Oller de Mas</span>
         </div>
         <div class="proj-link" onclick="openProject('vgestion')" style="cursor:pointer">
             <div class="proj-dot proj-dot-victor">📊</div>
@@ -795,17 +795,16 @@
             iconClass: 'proj-card-icon-violet',
             btnClass: 'proj-open-btn-violet',
             title: 'ProgramaFichar',
-            url: 'http://46.225.69.8:5175/login',
+            url: 'https://hydraulic-targeted-framing-contracting.trycloudflare.com/login',
             desc: 'SaaS multitenant de control de presencia laboral (RDL 8/2019). Panel admin con fichajes en tiempo real, gestión de ausencias, horarios y overtime. Kiosk táctil para fichaje por PIN. Portal del empleado con historial y solicitud de ausencias.',
-            note: 'Hay 2 empresas demo con 25 empleados y 103 jornadas. Los empleados fichan en el kiosk con el slug de empresa + su PIN de 6 dígitos.',
+            note: 'URL HTTPS activa vía Cloudflare (puede cambiar si se reinicia el servidor). Hay 2 empresas demo con 25 empleados. Los empleados fichan en el kiosk introduciendo directamente su PIN de 6 dígitos.',
             logins: [
-                { role: 'Super Admin',  roleClass: 'role-super', label: 'Acceso global a todas las empresas',   user: 'david@fichar.app',               pass: 'Fichar2026!' },
+                { role: 'Super Admin',  roleClass: 'role-super', label: 'Acceso global a ambas empresas',       user: 'admin@martinez.es',              pass: 'Admin2026!'  },
                 { role: 'Admin',        roleClass: 'role-admin', label: 'Construcciones Martínez',              user: 'admin@martinez.es',              pass: 'Admin2026!'  },
-                { role: 'Supervisor',   roleClass: 'role-staff', label: 'Construcciones Martínez',              user: 'encargado@martinez.es',          pass: 'Super2026!'  },
                 { role: 'Admin',        roleClass: 'role-admin', label: 'Clínica San Rafael',                   user: 'admin@sanrafael.es',             pass: 'Admin2026!'  },
-                { role: 'Supervisor',   roleClass: 'role-staff', label: 'Clínica San Rafael',                   user: 'jefe.urgencias@sanrafael.es',    pass: 'Super2026!'  },
-                { role: 'Kiosk',        roleClass: 'role-kiosk', label: 'Slug: construcciones-martinez — PINs: 100001…100012', user: '', pass: '' },
-                { role: 'Kiosk',        roleClass: 'role-kiosk', label: 'Slug: clinica-san-rafael — PINs: 200001…200012',      user: '', pass: '' }
+                { role: 'Empleado',     roleClass: 'role-staff', label: 'Portal empleado (Construcciones Martínez)', user: 'carlos.rodriguez@martinez.es', pass: '100001' },
+                { role: 'Kiosk',        roleClass: 'role-kiosk', label: 'Construcciones Martínez — /kiosk/construcciones-martinez — PIN: 100001…100012', user: '', pass: '' },
+                { role: 'Kiosk',        roleClass: 'role-kiosk', label: 'Clínica San Rafael — /kiosk/clinica-san-rafael — PIN: 200001…200012',           user: '', pass: '' }
             ]
         },
         vgestion: {
