@@ -602,30 +602,44 @@
     </div>
 
     <div id="sb-projects">
-        <div class="proj-section-label">Proyectos</div>
-
-        <div class="proj-link proj-link-central" onclick="openProject('zerocog')" style="cursor:pointer">
-            <div class="proj-dot proj-dot-central">⬡</div>
-            <span class="proj-name">Zerocog_Frank</span>
+        <div class="proj-section-label">En producción</div>
+        <div class="proj-link proj-link-central" onclick="openProject('fichar')" style="cursor:pointer">
+            <div class="proj-dot proj-dot-central">⏱</div>
+            <span class="proj-name">Fichaje</span>
+        </div>
+        <div class="proj-link proj-link-central" onclick="openProject('captufact')" style="cursor:pointer">
+            <div class="proj-dot proj-dot-central">📄</div>
+            <span class="proj-name">CaptuFact</span>
         </div>
 
         <div class="proj-separator"></div>
-
-        <div class="proj-link" onclick="openProject('fichar')" style="cursor:pointer">
-            <div class="proj-dot proj-dot-victor">⏱</div>
-            <span class="proj-name">ProgramaFichar</span>
-        </div>
+        <div class="proj-section-label">En demo</div>
         <div class="proj-link" onclick="openProject('hotel')" style="cursor:pointer">
             <div class="proj-dot proj-dot-victor">🏨</div>
-            <span class="proj-name">PMS Oller de Mas</span>
+            <span class="proj-name">Programa del hotel</span>
         </div>
-        <div class="proj-link" onclick="openProject('vgestion')" style="cursor:pointer">
-            <div class="proj-dot proj-dot-victor">📊</div>
-            <span class="proj-name">VGestion</span>
+        <div class="proj-link" onclick="openProject('crm')" style="cursor:pointer">
+            <div class="proj-dot proj-dot-victor">👥</div>
+            <span class="proj-name">CRM del grupo</span>
+        </div>
+        <div class="proj-link" onclick="openProject('fichardemo')" style="cursor:pointer">
+            <div class="proj-dot proj-dot-victor">🛡</div>
+            <span class="proj-name">Fichaje y guardias (Castlexperience y BLE)</span>
+        </div>
+
+        <div class="proj-separator"></div>
+        <div class="proj-section-label">Empezados</div>
+        <div class="proj-link" onclick="openProject('restaurante')" style="cursor:pointer">
+            <div class="proj-dot proj-dot-victor">🍽</div>
+            <span class="proj-name">Caja del restaurante</span>
+        </div>
+        <div class="proj-link" onclick="openProject('tienda')" style="cursor:pointer">
+            <div class="proj-dot proj-dot-victor">🛍</div>
+            <span class="proj-name">Caja de la tienda</span>
         </div>
         <div class="proj-link" onclick="openProject('mice')" style="cursor:pointer">
             <div class="proj-dot proj-dot-victor">🤝</div>
-            <span class="proj-name">MICE / Gestión Comercial</span>
+            <span class="proj-name">Presupuestos de eventos (MICE)</span>
         </div>
     </div>
 </div>
@@ -765,73 +779,85 @@
     // ─── Project cards ───────────────────────────────────────────────────────
 
     const PROJECTS = {
-        zerocog: {
-            icon: '⬡',
+        fichar: {
+            icon: '⏱',
             iconClass: 'proj-card-icon-teal',
             btnClass: 'proj-open-btn-teal',
-            title: 'Zerocog_Frank',
-            url: 'http://46.225.69.8:7861/',
-            desc: 'Hub central de análisis financiero con IA. Conecta Business Central (Microsoft) con un chat en lenguaje natural sobre facturas, proveedores y flujo de caja. Datos de demo: corpus CRONUS ES (227 eventos BC + 109 facturas VGestion).',
-            note: 'No requiere login. La app arranca directamente con los datos CRONUS cargados. Si el panel muestra "Cargando datos…", pulsa Ctrl+Shift+R.',
-            logins: [
-                { role: 'Acceso libre', roleClass: 'role-free', label: '— sin autenticación —', user: '', pass: '' }
-            ]
+            title: 'Fichaje',
+            url: 'https://ca-fichar-web.kindpebble-eb10e788.westeurope.azurecontainerapps.io/portal/login',
+            desc: 'En producción en la infraestructura Azure del grupo. Registro de jornada que exige la ley, sin papel, para las sociedades de Oller: fichaje en tablet con PIN o desde el móvil, cálculo de horas, extras y descansos, ausencias y vacaciones, informes para la gestoría y portal personal de cada trabajador, por donde se reparten las nóminas desde el 5 de noviembre. Unas 60 personas de seis sociedades fichan cada día laborable.',
+            note: 'Este enlace abre el portal del trabajador. Los accesos se dan en persona a quien vaya a usar cada programa; no se publican en esta página.',
+            logins: []
+        },
+        captufact: {
+            icon: '📄',
+            iconClass: 'proj-card-icon-teal',
+            btnClass: 'proj-open-btn-teal',
+            title: 'CaptuFact',
+            url: 'https://ca-capfact-web.kindpebble-eb10e788.westeurope.azurecontainerapps.io/',
+            desc: 'En producción en la infraestructura Azure del grupo desde el 26 de agosto. Recoge las facturas que llegan al correo de proveedores, las lee, comprueba proveedor e IVA, las pasa a aprobación y las vuelca a Business Central en la empresa que toca. Ha leído 1.411 facturas de 2026 de 379 proveedores.',
+            note: 'Los accesos se dan en persona a quien vaya a usar cada programa; no se publican en esta página.',
+            logins: []
         },
         hotel: {
             icon: '🏨',
             iconClass: 'proj-card-icon-violet',
             btnClass: 'proj-open-btn-violet',
-            title: 'PMS Oller de Mas',
-            url: 'http://46.225.69.8:5174/',
-            desc: 'Sistema de gestión hotelera (PMS) para Hotel Ollers de Mar. Gestión de reservas, check-in/check-out, rack visual de habitaciones, housekeeping, clientes VIP, integración con Brevo para emails automáticos e informes.',
-            note: null,
-            logins: [
-                { role: 'Admin',        roleClass: 'role-admin', label: 'Acceso completo al panel',             user: 'admin@hotel.com',     pass: 'admin123'     },
-                { role: 'Recepción',    roleClass: 'role-staff', label: 'Check-in, check-out, reservas activas', user: 'recepcio@hotel.com',  pass: 'recepcio123'  }
-            ]
+            title: 'Programa del hotel',
+            url: 'https://hotel.zerocog.org/',
+            desc: 'El sustituto de FrontHotel para Les Cabanes: reservas, recepción, datos del parte de viajeros, caja, limpieza, cierre del día e informes. En demo con datos inventados, revisado por recepción. Lo que le falta y los plazos se tratan aparte.',
+            note: 'Los accesos se dan en persona a quien vaya a usar cada programa; no se publican en esta página.',
+            logins: []
         },
-        fichar: {
-            icon: '⏱',
+        crm: {
+            icon: '👥',
             iconClass: 'proj-card-icon-violet',
             btnClass: 'proj-open-btn-violet',
-            title: 'ProgramaFichar',
-            url: 'https://hydraulic-targeted-framing-contracting.trycloudflare.com/login',
-            desc: 'SaaS multitenant de control de presencia laboral (RDL 8/2019). Panel admin con fichajes en tiempo real, gestión de ausencias, horarios y overtime. Kiosk táctil para fichaje por PIN. Portal del empleado con historial y solicitud de ausencias.',
-            note: 'URL HTTPS activa vía Cloudflare (puede cambiar si se reinicia el servidor). Hay 2 empresas demo con 25 empleados. Los empleados fichan en el kiosk introduciendo directamente su PIN de 6 dígitos.',
-            logins: [
-                { role: 'Super Admin',  roleClass: 'role-super', label: 'Acceso global a ambas empresas',       user: 'admin@martinez.es',              pass: 'Admin2026!'  },
-                { role: 'Admin',        roleClass: 'role-admin', label: 'Construcciones Martínez',              user: 'admin@martinez.es',              pass: 'Admin2026!'  },
-                { role: 'Admin',        roleClass: 'role-admin', label: 'Clínica San Rafael',                   user: 'admin@sanrafael.es',             pass: 'Admin2026!'  },
-                { role: 'Empleado',     roleClass: 'role-staff', label: 'Portal empleado (Construcciones Martínez)', user: 'carlos.rodriguez@martinez.es', pass: '100001' },
-                { role: 'Kiosk',        roleClass: 'role-kiosk', label: 'Construcciones Martínez — /kiosk/construcciones-martinez — PIN: 100001…100012', user: '', pass: '' },
-                { role: 'Kiosk',        roleClass: 'role-kiosk', label: 'Clínica San Rafael — /kiosk/clinica-san-rafael — PIN: 200001…200012',           user: '', pass: '' }
-            ]
+            title: 'CRM del grupo',
+            url: 'https://crm.zerocog.org/',
+            desc: 'Una sola ficha de cliente para todas las empresas del grupo, haya comprado en la bodega, dormido en las cabañas o venido a un evento. Segmentos, importación desde Excel y campañas, con acceso por roles. Desplegado; falta empezar a usarlo con datos reales.',
+            note: 'Los accesos se dan en persona a quien vaya a usar cada programa; no se publican en esta página.',
+            logins: []
         },
-        vgestion: {
-            icon: '📊',
+        fichardemo: {
+            icon: '🛡',
             iconClass: 'proj-card-icon-violet',
             btnClass: 'proj-open-btn-violet',
-            title: 'VGestion',
-            url: 'http://46.225.69.8:5173/',
-            desc: 'Gestor de facturas por email con integración ZeroCog. Captura facturas automáticamente desde el correo, las categoriza y las sincroniza con el hub ZerocogFrank cada 30 minutos. Incluye columna de beneficiario, check de contabilizado y modo de pago.',
-            note: null,
-            logins: [
-                { role: 'Admin', roleClass: 'role-admin', label: 'Acceso completo', user: 'victorjanerperez@gmail.com', pass: 'Victor2026!' }
-            ]
+            title: 'Fichaje y guardias — demo',
+            url: 'https://fichar-demo.zerocog.org/login',
+            desc: 'El mismo programa de fichaje, en demo para Castlexperience y BLE, con las guardias de sus equipos. A la espera de su visto bueno para pasar a real.',
+            note: 'Los accesos se dan en persona a quien vaya a usar cada programa; no se publican en esta página.',
+            logins: []
+        },
+        restaurante: {
+            icon: '🍽',
+            iconClass: 'proj-card-icon-violet',
+            btnClass: 'proj-open-btn-violet',
+            title: 'Caja del restaurante',
+            url: 'http://46.225.69.8:5178/',
+            desc: 'Primera versión: comandas, cocina y cobro, con cargo a la cabaña del huésped. Su continuación depende de decidir el camino del programa del hotel.',
+            note: 'Demo con datos inventados. Los accesos se dan en persona a quien vaya a usar cada programa; no se publican en esta página.',
+            logins: []
+        },
+        tienda: {
+            icon: '🛍',
+            iconClass: 'proj-card-icon-violet',
+            btnClass: 'proj-open-btn-violet',
+            title: 'Caja de la tienda',
+            url: 'http://46.225.69.8:5179/',
+            desc: 'Primera versión del cobro en la tienda del hotel. Su continuación depende de decidir el camino del programa del hotel.',
+            note: 'Demo con datos inventados. Los accesos se dan en persona a quien vaya a usar cada programa; no se publican en esta página.',
+            logins: []
         },
         mice: {
             icon: '🤝',
             iconClass: 'proj-card-icon-violet',
             btnClass: 'proj-open-btn-violet',
-            title: 'MICE / Gestión Comercial',
+            title: 'Presupuestos de eventos (MICE)',
             url: 'http://46.225.69.8:5176/',
-            desc: 'Plataforma de gestión comercial para eventos MICE (BLE y Castlexperience). Pipeline de ventas con kanban y drag & drop en 6 etapas (Recibida → Cotizada → Enviada → Negociación → Ganada → Perdida), catálogo de servicios, gestión de clientes y alertas de seguimiento.',
-            note: 'Hay 2 marcas demo: BLE y Castlexperience, con 8 clientes, 20 partidas de catálogo y 10 peticiones cada una en todos los estados del pipeline.',
-            logins: [
-                { role: 'Admin',     roleClass: 'role-admin', label: 'Acceso completo — ambas marcas', user: 'admin@mice.local',      pass: 'mice2026'  },
-                { role: 'Comercial', roleClass: 'role-staff', label: 'Solo BLE',                       user: 'comercial@ble.demo',    pass: 'demo2026'  },
-                { role: 'Comercial', roleClass: 'role-staff', label: 'Solo Castlexperience',           user: 'comercial@cxp.demo',    pass: 'demo2026'  }
-            ]
+            desc: 'Presupuestos de grupos y eventos para BLE y Castlexperience, en dos versiones. Se enseñó en junio y está a la espera de una decisión.',
+            note: 'Demo de junio con datos inventados. Los accesos se dan en persona a quien vaya a usar cada programa; no se publican en esta página.',
+            logins: []
         }
     };
 
@@ -861,6 +887,7 @@
                 <div class="proj-card-title">${p.title}</div>
             </div>
             <p class="proj-card-desc">${p.desc}</p>
+            ${p.logins.length ? `
             <div class="proj-card-section">Accesos</div>
             <table class="proj-logins-table">
                 <thead>
@@ -872,7 +899,7 @@
                     </tr>
                 </thead>
                 <tbody>${loginsHtml}</tbody>
-            </table>
+            </table>` : ''}
             ${noteHtml}
             <a class="proj-open-btn ${p.btnClass}" href="${p.url}" target="_blank" rel="noopener">
                 Abrir ${p.title} →
